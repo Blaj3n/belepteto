@@ -23,3 +23,13 @@ with open("kesok.txt", "w", encoding="utf-8") as fajl:
     for egysor in beleptetes:
         if egysor[3] == 1 and ido(7, 50) < ido(int(egysor[1]), int(egysor[2])) <= ido(8, 15):
             fajl.write(f"{(egysor[1])}:{(egysor[2])} {egysor[0]}\n")
+
+# egysor = ['CEFX', '07', '00', 1]
+print("4. feladat")
+szamlalo = 0
+for egysor in beleptetes:
+    if egysor[3] == 3:
+        szamlalo += 1
+print(f"A menzán aznap {szamlalo} tanuló ebédelt. ")
+# Ákos megoldása, érdemes ezt is elsajátítani, list comprehension., ugyanaz a megoldása mint az enyémnek.
+# print(f"A menzán aznap {len([egyelem for egyelem in beleptetes if egyelem[3] == 3])} tanuló ebédelt. ")
