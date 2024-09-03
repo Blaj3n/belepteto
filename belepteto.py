@@ -10,3 +10,7 @@ with open("bedat.txt", "r", encoding="utf-8") as file:
         # egysor = ['CEFX', '07', '00', 1]
 print(beleptetes)
 
+print("2. feladat ")
+print(f"Az első tanuló {beleptetes[0][1]}:{beleptetes[0][2]}-kor lépett be a főkapun.")
+print(f"Az utolsó tanuló {beleptetes[-1][1]}:{beleptetes[-1][2]}-kor lépett ki a főkapun.")
+
