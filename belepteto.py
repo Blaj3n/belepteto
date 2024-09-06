@@ -26,10 +26,25 @@ with open("kesok.txt", "w", encoding="utf-8") as fajl:
 
 # egysor = ['CEFX', '07', '00', 1]
 print("4. feladat")
-szamlalo = 0
+menza_szamlalo = 0
 for egysor in beleptetes:
     if egysor[3] == 3:
-        szamlalo += 1
-print(f"A menzán aznap {szamlalo} tanuló ebédelt. ")
+        menza_szamlalo += 1
+print(f"A menzán aznap {menza_szamlalo} tanuló ebédelt. ")
 # Ákos megoldása, érdemes ezt is elsajátítani, list comprehension., ugyanaz a megoldása mint az enyémnek.
 # print(f"A menzán aznap {len([egyelem for egyelem in beleptetes if egyelem[3] == 3])} tanuló ebédelt. ")
+
+print("5. feladat")
+
+konyv_kolcson_lista = []
+for tanulo in beleptetes:
+    if tanulo[3] == 4 and tanulo[0] not in konyv_kolcson_lista:
+        konyv_kolcson_lista.append(tanulo[0])
+
+# print(konyv_kolcson_lista)
+print(f"Aznap {len(konyv_kolcson_lista)} tanuló kölcsönzött a könyvtárban. ")
+
+if len(konyv_kolcson_lista) < menza_szamlalo:
+    print("Többen voltak, mint a menzán. ")
+else:
+    print("Nem voltak többen, mint a menzán. ")
