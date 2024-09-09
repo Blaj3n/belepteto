@@ -9,7 +9,7 @@ with open("bedat.txt", "r", encoding="utf-8") as file:
         beleptetes.append([str(egysor[0]), str(ora_perc[0]), str(ora_perc[1]), int(egysor[2])])
         # ora_perc átalakítás nincs kihatással az egysorra
         # egysor = ['CEFX', '07', '00', 1]
-print(beleptetes)
+# print(beleptetes)
 
 print("2. feladat ")
 print(f"Az első tanuló {beleptetes[0][1]}:{beleptetes[0][2]}-kor lépett be a főkapun. ")
@@ -91,25 +91,31 @@ for tanulo in tizenegy_lista:
 for tanulo in belepes_kilepes:
     if tanulo.count(1) != tanulo.count(2):
         print(tanulo[0], end=" ")
+print("")
 
-#TERVEZÉS:
-# 1. Változó amibe eltároljuk a felhasználó által megadott tanuló azonosítóját (tanulo_azonosito)
-# 2. Majd a megadott azonosítóval végig megyünk a beleptetes tömbön
-# 3. Ha megvan az azonosító, akkor az ahhoz tartozó adatokat eltároljuk egy tömbben
-# 3. LÉPÉS RÉSZBEN KÉSZ, DE JAVÍTÁSRA SZORUL 2024_09_07
-# 4. Az eltárolt adatok (óra,perc) közül megkeressük azt ami belépés(1) és kilépés(2)
-# 5. Majd a kilépés időből kivonjuk a belépés idejét
 print("7. feladat")
 
-adott_tanulo = []
-tanulo_azonosito = input("Egy tanuló azonosítója=")  #ZOOM
+bent_van = 0
+tanulo_azonosito = input("Egy tanuló azonosítója=")
 for tanulo in beleptetes:
-    if tanulo_azonosito == tanulo[0] and tanulo[3] == 1 or tanulo[3] == 2 :
-        adott_tanulo.append("óra " + tanulo[1])
-        adott_tanulo.append("perc " + tanulo[2])
-        # adott_tanulo.append("esemény kód " + str(tanulo[3]))
-print(adott_tanulo)
+    if tanulo[0] == tanulo_azonosito:
+        bent_van = 1
+        bejott_kiment = []
+        # [kezd_ora, kezd_perc, random_ora, random_perc, veg_ora, veg_perc]
+        for diak in beleptetes:
+            if diak[0] == tanulo_azonosito and (diak[3] == 1 or diak[3] == 2):  # a ()-re azért van szükség, hisz a python kicsit furcsán olvas: balról jobbra teszi, tehát máshogy értelmez: if x és y vagy b, ezt ahogy így olvasod úgy is értelmezi, tehát: if (x és y ) vagy (b). Viszont nekünk az kell, hogy if (x) és (y vagy b)
+                bejott_kiment.append([int(diak[1]), int(diak[2])])  # []-re azért van szükség, mert az append metódus 1 paramétert vár, valamint összeszedettebb a kód, hisz nem tévedünk el az adatokban.
+# print(bejott_kiment)
+# a kilépés óra percéből kell kivonni a belépés óra percét
+        kilepes_perc = bejott_kiment[-1][-1] - bejott_kiment[0][-1]
+        kilepes_ora = bejott_kiment[-1][0] - bejott_kiment[0][0]
+        if kilepes_perc < 0:
+            kilepes_ora -= 1
+            kilepes_perc += 60
+        print(f"A tanuló érkezése és távozása között {kilepes_ora} óra {kilepes_perc} perc telt el.")
+        break
 
-print(f"A tanuló érkezése és távozása között 7 óra 4 perc telt el.")
+if bent_van == 0:
+    print("Ilyen azonosítójú tanuló aznap nem volt az iskolában.")
 
-
+# 2. kövi_óra
